@@ -24,8 +24,10 @@ flowchart TB
       D["Decision 决策"]
     end
     subgraph Direction["方向层"]
+      W["Worldview 工作观／人生观"]
       C["Compass 人生罗盘"]
-      G["Strategy 情景与战略"]
+      O["Odyssey 多路径未来"]
+      G["Strategy 当前选择"]
       P["Plan 季度计划"]
     end
     subgraph Learning["学习层"]
@@ -34,7 +36,10 @@ flowchart TB
       T["Trace 变更与运行记录"]
     end
     Input --> Knowledge
-    Knowledge --> Direction
+    Knowledge --> W
+    W --> C
+    C --> O
+    O --> G
     Direction --> Learning
     Learning --> Knowledge
 ```
@@ -92,4 +97,5 @@ flowchart TB
 4. 重要写入必须可恢复、可追溯并限定范围。
 5. 历史结果只追加或被明确标记为 superseded，不静默改写。
 6. 高风险建议必须连接权威来源或专业人士。
-
+7. 奥德赛评分只能暴露问题，不能自动决定用户应选择的路线。
+8. 三年战略必须说明它承接了哪项本人选择及哪些原型证据。

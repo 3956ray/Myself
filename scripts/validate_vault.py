@@ -34,10 +34,14 @@ CORE_FILES = (
     "01 基础/人生罗盘.md",
     "01 基础/当前状态.md",
     "01 基础/人生维度.md",
+    "01 基础/工作观与人生观.md",
+    "02 战略/当前要解决的问题.md",
+    "02 战略/奥德赛计划.md",
     "02 战略/三年情景.md",
     "03 季度/当前季度.md",
     "04 复盘/复盘说明.md",
     "05 日志/证据日志.md",
+    "05 日志/投入与能量日志.md",
     "05 日志/决策日志.md",
     "05 日志/变更日志.md",
     "05 日志/工作流运行记录.md",
@@ -49,11 +53,16 @@ CORE_FILES = (
     "90 模板/决策记录.md",
     "90 模板/证据记录.md",
     "90 模板/实验记录.md",
+    "90 模板/投入与能量记录.md",
+    "90 模板/问题重构.md",
+    "90 模板/奥德赛原型访谈.md",
+    "90 模板/奥德赛原型实验.md",
     "90 模板/变更提案.md",
     "99 系统/首次设置.md",
     "99 系统/运行规则.md",
     "99 系统/数据契约.md",
     "99 系统/工作流地图.md",
+    "99 系统/奥德赛方法与来源.md",
     "99 系统/验证与检查点.md",
     "99 系统/Agent 协作.md",
 )
@@ -73,6 +82,15 @@ REVIEW_TYPES = {
     "monthly-review": "月复盘",
     "quarterly-review": "季度复盘",
     "annual-review": "年度复盘",
+}
+
+LIFE_DESIGN_MARKERS = {
+    "01 基础/工作观与人生观.md": ("## 工作观 Workview", "## 人生观 Lifeview", "## 一致、冲突与缺口"),
+    "02 战略/当前要解决的问题.md": ("## 原始问题", "## 至少三个重构", "## 当前采用的问题框架"),
+    "02 战略/奥德赛计划.md": ("## 计划 1：当前轨迹", "## 计划 2：当前路径不再可行", "## 计划 3：暂时放下金钱与社会期待", "## 原型队列"),
+    "02 战略/三年情景.md": ("## 选择来源", "## Plan B 与 Plan Z", "## 未来 90 天"),
+    "90 模板/奥德赛原型访谈.md": ("## 要减少的未知", "## 事实与解释", "## 学习与下一步"),
+    "90 模板/奥德赛原型实验.md": ("## 来源与学习问题", "## 最小设计", "## 结果"),
 }
 
 
@@ -247,6 +265,24 @@ def check_reviews(documents: Mapping[str, Document], findings: list[Finding], te
             findings.append(Finding("WARNING", "REVIEW_NONE", "04 复盘", None, f"尚无实际{label}实例"))
 
 
+def check_life_design_contract(documents: Mapping[str, Document], findings: list[Finding]) -> None:
+    """Guard the semantic handoff from reflection to Odyssey and strategy."""
+    for relative, markers in LIFE_DESIGN_MARKERS.items():
+        document = documents.get(relative)
+        if not document:
+            continue
+        body = "\n".join(document.lines)
+        for marker in markers:
+            if marker not in body:
+                findings.append(Finding(
+                    "ERROR",
+                    "LIFE_DESIGN_SECTION_MISSING",
+                    relative,
+                    None,
+                    f"required workflow section is missing: {marker}",
+                ))
+
+
 def default_vault() -> Path:
     script = Path(__file__).resolve()
     if script.parent.name == "scripts" and script.parent.parent.name == "99 系统":
@@ -274,6 +310,7 @@ def run(argv: Optional[Sequence[str]] = None) -> int:
     links = check_links(vault, documents, findings)
     check_sensitive(documents, findings)
     check_reviews(documents, findings, args.template_mode)
+    check_life_design_contract(documents, findings)
     order = {"ERROR": 0, "WARNING": 1, "INFO": 2}
     findings.sort(key=lambda item: (order[item.severity], item.path.casefold(), item.line or 0, item.code))
     for item in findings:
@@ -289,4 +326,3 @@ def run(argv: Optional[Sequence[str]] = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(run())
-

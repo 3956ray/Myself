@@ -14,12 +14,16 @@ Before proposing a material change, read only the relevant user pages plus:
 5. `99 系统/Agent 协作.md`
 
 For a new vault, also read `99 系统/首次设置.md`.
+For Odyssey planning, also read `99 系统/奥德赛方法与来源.md` and the
+relevant foundation, strategy and prototype pages.
 
 ## Safety and truth
 
 - Preserve the user's wording and unrelated edits.
 - Separate Fact, Feeling, Interpretation, Hypothesis and Decision.
 - Never convert an inference, aspiration or model suggestion into a fact.
+- Never infer the user's Workview, Lifeview, values or preferred Odyssey from
+  scores. Ask, preserve uncertainty and leave the final choice to the user.
 - Keep current state, bounded periods and future targets explicit with `as_of`
   and `time_scope`.
 - Minimize context. Do not expose restricted data to workers unless essential.
@@ -41,4 +45,3 @@ For state, strategy, finance or important decisions:
 
 Read-only analysis may be parallelized only when tasks are truly independent.
 No Agent may approve the user's values or long-term strategy.
-
