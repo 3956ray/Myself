@@ -39,6 +39,7 @@ class PersonalOSCliTests(unittest.TestCase):
             self.assertTrue((target / "02 战略" / "奥德赛计划.md").is_file())
             self.assertTrue((target / "90 模板" / "奥德赛原型访谈.md").is_file())
             self.assertTrue((target / "90 模板" / "奥德赛原型实验.md").is_file())
+            self.assertTrue((target / "99 系统" / "适用对象与成果.md").is_file())
             self.assertTrue((target / "99 系统" / "scripts" / "validate_vault.py").is_file())
             self.assertNotIn("__INIT_", (target / "00 首页.md").read_text(encoding="utf-8"))
 
@@ -46,6 +47,10 @@ class PersonalOSCliTests(unittest.TestCase):
             self.assertIn("## 计划 1：当前轨迹", odyssey)
             self.assertIn("## 计划 2：当前路径不再可行", odyssey)
             self.assertIn("## 计划 3：暂时放下金钱与社会期待", odyssey)
+
+            strategy = (target / "02 战略" / "三年情景.md").read_text(encoding="utf-8")
+            self.assertIn("## 当前方向陈述", strategy)
+            self.assertIn("## 改变方向的条件", strategy)
 
     def test_life_design_contract_rejects_missing_odyssey_section(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

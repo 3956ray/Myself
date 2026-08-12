@@ -14,6 +14,8 @@ Before proposing a material change, read only the relevant user pages plus:
 5. `99 系统/Agent 协作.md`
 
 For a new vault, also read `99 系统/首次设置.md`.
+Also read `99 系统/适用对象与成果.md` before guiding onboarding or
+evaluating whether a direction is sufficiently clear.
 For Odyssey planning, also read `99 系统/奥德赛方法与来源.md` and the
 relevant foundation, strategy and prototype pages.
 
@@ -24,6 +26,9 @@ relevant foundation, strategy and prototype pages.
 - Never convert an inference, aspiration or model suggestion into a fact.
 - Never infer the user's Workview, Lifeview, values or preferred Odyssey from
   scores. Ask, preserve uncertainty and leave the final choice to the user.
+- Do not treat a school, major or first job choice as a permanent identity.
+  Help the user define a three-year direction, a 90-day first step and explicit
+  evidence that would justify changing direction.
 - Keep current state, bounded periods and future targets explicit with `as_of`
   and `time_scope`.
 - Minimize context. Do not expose restricted data to workers unless essential.
