@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import posixpath
 import re
 import sys
@@ -177,6 +178,37 @@ def check_metadata(documents: Mapping[str, Document], findings: list[Finding]) -
                 findings.append(Finding("ERROR", "ID_DUPLICATE", path, 1, f"duplicated id across: {joined}"))
 
 
+def check_dates(documents: Mapping[str, Document], findings: list[Finding], template_mode: bool) -> None:
+    """Validate populated date fields; blank optional dates remain valid."""
+    fields = ("as_of", "scope_start", "scope_end", "review_due", "result_review_date", "started_on")
+    for document in documents.values():
+        dates: dict[str, dt.date] = {}
+        is_template = document.relative.startswith("90 模板/")
+        for field in fields:
+            value = document.frontmatter.get(field)
+            if not value:
+                continue
+            if (is_template and "{{" in value) or (template_mode and "__INIT_" in value):
+                continue
+            try:
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                    raise ValueError
+                dates[field] = dt.date.fromisoformat(value)
+            except ValueError:
+                findings.append(Finding("ERROR", "DATE_INVALID", document.relative, 1, f"{field} must be a valid YYYY-MM-DD date"))
+        start, end = dates.get("scope_start"), dates.get("scope_end")
+        if start and end and start > end:
+            findings.append(Finding("ERROR", "DATE_RANGE_REVERSED", document.relative, 1, "scope_start is after scope_end"))
+        review = dates.get("review_due")
+        legacy_review = dates.get("result_review_date")
+        if review and legacy_review and review != legacy_review:
+            findings.append(Finding("ERROR", "REVIEW_DATE_CONFLICT", document.relative, 1, "review_due and result_review_date disagree"))
+        started = dates.get("started_on")
+        as_of = dates.get("as_of")
+        if started and as_of and started > as_of:
+            findings.append(Finding("ERROR", "START_AFTER_AS_OF", document.relative, 1, "actual started_on is after as_of"))
+
+
 def build_index(vault: Path) -> tuple[set[str], dict[str, set[str]]]:
     files: set[str] = set()
     names: dict[str, set[str]] = {}
@@ -271,6 +303,7 @@ def run(argv: Optional[Sequence[str]] = None) -> int:
     check_core(vault, args.template_mode, findings)
     documents = read_documents(vault, findings)
     check_metadata(documents, findings)
+    check_dates(documents, findings, args.template_mode)
     links = check_links(vault, documents, findings)
     check_sensitive(documents, findings)
     check_reviews(documents, findings, args.template_mode)
@@ -289,4 +322,3 @@ def run(argv: Optional[Sequence[str]] = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(run())
-

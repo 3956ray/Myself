@@ -1,8 +1,21 @@
 # Myself — Agent-native Personal OS
 
-> 一个以证据、实验和本人决策为核心的人生规划框架。可以作为 Obsidian vault 使用，也可以让 Codex、Claude Code、Cursor 或其他能够读写本地 Markdown 的 Agent 协助运行。
+> 一个以证据、知识积累、实验和本人决策为核心的个人工作框架。Myself 提供方法、Agent 协议和工具，个人资料保存在独立的 Myself-vault 中，Obsidian 提供阅读与编辑界面。
 
 Myself 不是替你生成一份看起来完整的“五年计划”。它把人生规划设计成一个可迭代系统：先认识现实与自己，再形成方向，用低成本实验验证，最后根据证据调整。
+
+## 框架、私人运行版本与知识库
+
+| 部分 | 保存什么、负责什么 |
+|---|---|
+| 公开 Myself | 可复用的方法、协议、模板与工具，供他人使用 |
+| 私人 Myself | 框架的本地工作版本，可试用个人工作流；通过本机配置连接 Vault |
+| Myself-vault | 唯一长期个人知识存储：原始资料、知识、状态、规划与使用反馈 |
+| Obsidian | 阅读、搜索和编辑 Vault 的界面 |
+
+日常循环是 **读取 Vault → 用 Myself 讨论、整理与验证 → 输出到 Vault**。框架改进循环是 **使用反馈 → 试用改进 → 验证效果 → 将适合公开的通用内容更新到公开 Myself**。
+
+私人运行版本不需要再保存一套个人知识。绑定路径等本机配置放在被 Git 忽略的 `.myself/local.json`；`.myself/` 中的恢复点仅用于本地恢复。个人规则实验与结果保存在 Vault 的 Myself 项目内。
 
 ## 它解决什么问题
 
@@ -61,6 +74,21 @@ python3 scripts/init_vault.py ~/My-Personal-OS
 
 更完整的流程见 [快速开始](docs/getting-started.md)。
 
+## 连接已有知识库
+
+以下路径与内容均为虚构示例。在 Myself 框架目录运行：
+
+```bash
+python3 scripts/knowledge.py bind --vault /absolute/path/to/example-vault
+python3 scripts/knowledge.py status
+python3 scripts/knowledge.py search "项目复盘"
+python3 scripts/knowledge.py lint
+```
+
+绑定只保存本机连接配置，不迁移或改写已有 Vault。Agent 按 [知识系统工作流](docs/knowledge-system.md) 执行来源收录、检索问答、讨论沉淀和维护；实际输出前检查具体计划与用户已授权的范围。
+
+知识系统借鉴 [Karpathy 的 LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)：保留原始资料，持续更新主题理解，维护索引与演进记录。目前提供本地关键词检索和受控文件输出；知识理解由 Agent 完成。向量检索、QMD 接入和后台自迭代尚未实现。
+
 ## 目标发现模型
 
 框架不会从“你五年后想做什么”直接开始，而是依次处理：
@@ -78,7 +106,7 @@ python3 scripts/init_vault.py ~/My-Personal-OS
 ```text
 .
 ├── docs/                 # 架构、决策模型、Agent 与 Obsidian 指南
-├── scripts/              # 初始化器与只读校验器
+├── scripts/              # 初始化、校验、知识检索与受控输出工具
 ├── tests/                # 标准库测试
 └── vault-template/       # 不含个人数据的 Personal OS 模板
     ├── 00 收件箱/         # 未验证输入
@@ -91,6 +119,8 @@ python3 scripts/init_vault.py ~/My-Personal-OS
     ├── 90 模板/           # 可复制的记录模板
     └── 99 系统/           # 数据契约、调用链和安全规则
 ```
+
+已有 Vault 接入知识工作流后，可按需新增 `80 来源/`、`70 知识/` 和 `07 项目/Myself/`。这些目录在授权输出时创建，不要求重排原来的规划、复盘和日志。
 
 ## 设计边界
 
@@ -109,3 +139,7 @@ python3 scripts/validate_vault.py --vault vault-template --template-mode
 
 项目采用 [MIT License](LICENSE)。当前版本为早期可用版本，欢迎通过 Issue 提交使用反馈。
 
+
+## 从一个具体问题开始
+
+参照[完整虚构示例](docs/worked-example.md)走完一次选择与实验；现实发生变化时使用生成 vault 中的阶段重规划流程。已有用户参照[0.2 改进与迁移](docs/iteration-0.2.md)合并新能力。

@@ -7,3 +7,6 @@ __pycache__/
 dist/
 build/
 
+
+# Private binding, plans and recovery data for the local framework instance.
+.myself/
