@@ -1,21 +1,20 @@
 # Myself — Agent-native Personal OS
 
-> 一个以证据、知识积累、实验和本人决策为核心的个人工作框架。Myself 提供方法、Agent 协议和工具，个人资料保存在独立的 Myself-vault 中，Obsidian 提供阅读与编辑界面。
+> 一个以证据、知识积累、实验和本人决策为核心的个人工作框架。Myself 提供方法、Agent 协议和工具，个人资料保存在每位用户自己的 Vault 中，Obsidian 提供阅读与编辑界面。
 
 Myself 不是替你生成一份看起来完整的“五年计划”。它把人生规划设计成一个可迭代系统：先认识现实与自己，再形成方向，用低成本实验验证，最后根据证据调整。
 
-## 框架、私人运行版本与知识库
+## Myself 的组成
 
 | 部分 | 保存什么、负责什么 |
 |---|---|
-| 公开 Myself | 可复用的方法、协议、模板与工具，供他人使用 |
-| 私人 Myself | 框架的本地工作版本，可试用个人工作流；通过本机配置连接 Vault |
-| Myself-vault | 唯一长期个人知识存储：原始资料、知识、状态、规划与使用反馈 |
+| Myself 仓库 | 可复用的方法、Agent 协议、模板与工具 |
+| 用户 Vault | 每位用户自己的长期知识存储：原始资料、知识、状态、规划与使用反馈 |
 | Obsidian | 阅读、搜索和编辑 Vault 的界面 |
 
-日常循环是 **读取 Vault → 用 Myself 讨论、整理与验证 → 输出到 Vault**。框架改进循环是 **使用反馈 → 试用改进 → 验证效果 → 将适合公开的通用内容更新到公开 Myself**。
+日常循环是 **读取 Vault → 用 Myself 讨论、整理与验证 → 输出到 Vault**。方法改进循环是 **使用反馈 → 试用改进 → 验证效果 → 将适合所有用户的通用改进更新到 Myself**。
 
-私人运行版本不需要再保存一套个人知识。绑定路径等本机配置放在被 Git 忽略的 `.myself/local.json`；`.myself/` 中的恢复点仅用于本地恢复。个人规则实验与结果保存在 Vault 的 Myself 项目内。
+Myself 仓库不再保存一套用户知识。绑定路径等本机配置放在被 Git 忽略的 `.myself/local.json`；`.myself/` 中的恢复点仅用于本地恢复。个人规则实验与结果保存在用户 Vault 的 Myself 项目内。
 
 ## 它解决什么问题
 
@@ -76,7 +75,7 @@ python3 scripts/init_vault.py ~/My-Personal-OS
 
 ## 连接已有知识库
 
-以下路径与内容均为虚构示例。在 Myself 框架目录运行：
+以下路径与内容均为虚构示例。在 Myself 仓库目录运行：
 
 ```bash
 python3 scripts/knowledge.py bind --vault /absolute/path/to/example-vault

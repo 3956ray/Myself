@@ -1,6 +1,6 @@
 # 快速开始
 
-## 1. 初始化私人 vault
+## 1. 初始化个人 Vault
 
 ```bash
 python3 scripts/init_vault.py /绝对路径/My-Personal-OS
@@ -74,7 +74,7 @@ Agent 应展示：
 
 ## 6. 更新框架
 
-私人 vault 和框架仓库是两套目录。不要直接 `git pull` 覆盖私人 vault。未来版本应通过迁移说明或 Agent 生成变更提案，再由本人批准合并。
+个人 Vault 和 Myself 仓库是两套目录。不要直接 `git pull` 覆盖个人 Vault。未来版本应通过迁移说明或 Agent 生成变更提案，再由本人批准合并。
 
 
 ## 7. 先走完一个具体问题

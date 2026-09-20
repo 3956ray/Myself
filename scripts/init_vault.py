@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a private Personal OS vault from the public generic template."""
+"""Create a user's Personal OS vault from the generic Myself template."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def quarter_for(month: int) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Initialize a private Myself Personal OS vault."
+        description="Initialize a personal Vault for Myself."
     )
     parser.add_argument("target", type=Path, help="new or empty target directory")
     parser.add_argument(
@@ -104,4 +104,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

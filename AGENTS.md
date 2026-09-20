@@ -9,8 +9,8 @@ canonical life data.
 - `vault-template/` must remain generic and safe to publish.
 - A user's real Personal OS should be generated into a separate directory with
   `scripts/init_vault.py`.
-- A private Myself working copy runs the framework; the separately bound vault
-  is the only long-term store of personal sources, knowledge, and state.
+- Myself runs the framework; each separately bound user vault is the only
+  long-term store of that user's personal sources, knowledge, and state.
 - Read `docs/knowledge-system.md` before using `scripts/knowledge.py` and read
   the bound vault's own `AGENTS.md` before working with its data.
 - `.myself/local.json` contains local binding configuration and is Git-ignored.
@@ -30,9 +30,10 @@ canonical life data.
 - Keep user-reported facts, observations, external claims, and AI inferences
   distinct, with dates and original evidence. A generated summary is not new
   independent evidence.
-- For public framework work, use generic or explicitly cleared public material;
-  do not retrieve private vault content into a public-output session. A
-  `--public-only` filter does not itself anonymize or approve material.
+- When maintaining or publishing the Myself repository, use generic or
+  explicitly cleared public material; do not retrieve personal vault content
+  into a public-output session. A `--public-only` filter does not itself
+  anonymize or approve material.
 
 ## Knowledge work and authorization
 
