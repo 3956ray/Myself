@@ -38,6 +38,10 @@ canonical life data.
 
 - For advisory-council requests, follow `docs/advisory-council.md`; read the
   personal roster from the bound vault, never hard-code it into this framework.
+- For onboarding or long-term life-direction work, follow
+  `docs/odyssey-planning.md` after current-state and compass inputs are
+  sufficient. Draft the user's three routes before using the advisory council
+  to challenge them; do not let admired figures generate the user's values.
 
 - Distinguish exploration, confirmed understanding, and pending implementation.
   Agreement with an idea does not authorize every future file change.

@@ -35,8 +35,13 @@ class PersonalOSCliTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertTrue((target / "02 战略" / "2030 年度主题.md").is_file())
             self.assertTrue((target / "03 季度" / "2030-Q2.md").is_file())
+            self.assertTrue((target / "90 模板" / "奥德赛计划.md").is_file())
             self.assertTrue((target / "99 系统" / "scripts" / "validate_vault.py").is_file())
             self.assertNotIn("__INIT_", (target / "00 首页.md").read_text(encoding="utf-8"))
+            odyssey = (target / "02 战略" / "三年情景.md").read_text(encoding="utf-8")
+            self.assertIn("路线一：延续线", odyssey)
+            self.assertIn("路线二：替代线", odyssey)
+            self.assertIn("路线三：开放线", odyssey)
 
     def test_initializer_refuses_nonempty_target(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -55,4 +60,3 @@ class PersonalOSCliTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
